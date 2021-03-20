@@ -4,6 +4,7 @@ using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -16,33 +17,31 @@ namespace Business.Concrete
         public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
+
         }
 
        
 
-        public List<Brand> GetAllBrands()
+        public List<Car> GetAll()
         {
-            return _carDal.GetAllBrands();
+            return _carDal.GetAll();
         }
 
-        public List<ViewCar> GetAllByBrands()
+       
+
+        public List<Car> GetByDailyPrice(decimal min, decimal max)
         {
-            return _carDal.GetAllByBrand();
+            return _carDal.GetAll(p => p.DailyPrice >= min && p.DailyPrice <= max);
         }
 
-        public List<ViewCar> GetAllByColors()
+        public List<Car> GetCarsByBrandId(int id)
         {
-           return _carDal.GetAllByColor();
+            return _carDal.GetAll(p => p.BrandId == id);
         }
 
-        public List<ViewCar> GetAllCarsList()
+        public List<Car> GetCarsByColorId(int id)
         {
-            return _carDal.GetAllCars();
-        }
-
-        public List<Color> GetAllColors()
-        {
-            return _carDal.GetAllColors();
+            return _carDal.GetAll(p => p.ColorId == id);
         }
 
        

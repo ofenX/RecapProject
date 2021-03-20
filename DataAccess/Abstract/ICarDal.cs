@@ -6,15 +6,8 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface ICarDal
+    public interface ICarDal:IEntityRepository<Car>
     {
-        List<ViewCar> GetAllCars();
-        List<Brand> GetAllBrands();
-        List<Color> GetAllColors();
-        List<ViewCar> GetAllByBrand();
-        List<ViewCar> GetAllByColor();
-        void Add(Car car);
-        void Update(Car car);
-        void Delete(Car Car);
+       
     }
 }
