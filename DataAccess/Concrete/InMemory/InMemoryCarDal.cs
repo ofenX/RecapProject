@@ -39,7 +39,13 @@ namespace DataAccess.Concrete.InMemory
 
         public void Add(Car entity)
         {
-            _cars.Add(entity);
+            if (entity.DailyPrice>0)
+            {
+                _cars.Add(entity);
+            }
+            
+            
+           
         }
 
         public void Delete(Car entity)
