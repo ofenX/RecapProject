@@ -39,10 +39,10 @@ namespace DataAccess.Concrete.InMemory
 
         public void Add(Car entity)
         {
-            if (entity.DailyPrice>0)
-            {
+           
+           
                 _cars.Add(entity);
-            }
+           
             
             
            
@@ -65,13 +65,10 @@ namespace DataAccess.Concrete.InMemory
 
         public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
         {
-
-
-            return filter == null
+                return filter == null
                 ? _cars
                 : _cars.AsQueryable<Car>().Where(filter).ToList();
-
-            
+                       
         }
 
         public void Update(Car entity)

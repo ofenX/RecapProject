@@ -20,7 +20,20 @@ namespace Business.Concrete
 
         }
 
-       
+        public void Add(Car car)
+        {
+            if(car.DailyPrice<=0)
+            {
+                _carDal.Add(car);
+
+            }
+            
+        }
+
+        public void Delete(Car car)
+        {
+            _carDal.Delete(car);
+        }
 
         public List<Car> GetAll()
         {
@@ -44,6 +57,9 @@ namespace Business.Concrete
             return _carDal.GetAll(p => p.ColorId == id);
         }
 
-       
+        public void Update(Car car)
+        {
+            _carDal.Update(car);
+        }
     }
 }

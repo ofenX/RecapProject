@@ -42,10 +42,10 @@ namespace DataAccess.Concrete.InMemory
 
         public void Add(Brand entity)
         {
-            if (entity.Name.Length>2)
-            {
+           
+            
                 _brands.Add(entity);
-            }
+            
             
         }
 

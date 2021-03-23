@@ -17,6 +17,21 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
+        public void Add(Brand brand)
+        {
+            if(brand.Name.Length>2)
+            {
+                _brandDal.Add(brand);
+
+            }
+           
+        }
+
+        public void Delete(Brand brand)
+        {
+            _brandDal.Delete(brand);
+        }
+
         public Brand Get(int id)
         {
             return _brandDal.Get(p =>p.Id==id);
@@ -26,6 +41,11 @@ namespace Business.Concrete
         public List<Brand> GetAll()
         {
             return _brandDal.GetAll();
+        }
+
+        public void Update(Brand brand)
+        {
+            _brandDal.Update(brand);
         }
     }
 }
