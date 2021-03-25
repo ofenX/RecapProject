@@ -10,7 +10,8 @@ namespace DataAccess.Concrete.InMemory
 {
     public class InMemoryBrandDal : IBrandDal
     {
-        List<Brand> _brands;
+           List<Brand> _brands;
+
 
         public InMemoryBrandDal()
         {

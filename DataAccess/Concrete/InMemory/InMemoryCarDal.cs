@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,11 @@ namespace DataAccess.Concrete.InMemory
                 ? _cars
                 : _cars.AsQueryable<Car>().Where(filter).ToList();
                        
+        }
+
+        public List<CarDetailDto> GetCarDetails()
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Car entity)
