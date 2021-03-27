@@ -1,7 +1,9 @@
 ﻿using Business.Concrete;
+using Business.Constants;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 
@@ -77,55 +79,117 @@ namespace ConsoleUI
 
 
             // Tüm araçları listeleme
-            Console.WriteLine(String.Format("{0,-3} {1,-7}  {2,-7} {3,-15} {4,-10} {5,-10}", "Id", "BrandId", "ColorId", "Model Year", "DailyPrice", "Description"));
-            foreach (var car in carManager.GetAll())
-            {
-                Console.WriteLine(String.Format("{0,4} {1,4}  {2,4} {3,-10} {4,-10} {5,-10}", car.Id, car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description));
 
+            var result = carManager.GetAll();
+            if (result.Success == true)
+            {
+
+                Console.WriteLine(String.Format("{0,-3} {1,-7}  {2,-7} {3,-15} {4,-10} {5,-10}", "Id", "BrandId", "ColorId", "Model Year", "DailyPrice", "Description"));
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(String.Format("{0,4} {1,4}  {2,4} {3,-10} {4,-10} {5,-10}", car.Id, car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description));
+
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
 
-            // BrandId si 18 olan tüm araçları listeleme
-            Console.WriteLine(String.Format("{0,-3} {1,-7}  {2,-7} {3,-15} {4,-10} {5,-10}", "Id", "BrandId", "ColorId", "Model Year", "DailyPrice", "Description"));
-            foreach (var car in carManager.GetCarsByBrandId(18))
-            {
-                Console.WriteLine(String.Format("{0,4} {1,4}  {2,4} {3,-10} {4,-10} {5,-10}", car.Id, car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description));
 
+             result = carManager.GetCarsByBrandId(18);
+            if (result.Success == true)
+            {
+                // BrandId si 18 olan tüm araçları listeleme
+                Console.WriteLine(String.Format("{0,-3} {1,-7}  {2,-7} {3,-15} {4,-10} {5,-10}", "Id", "BrandId", "ColorId", "Model Year", "DailyPrice", "Description"));
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(String.Format("{0,4} {1,4}  {2,4} {3,-10} {4,-10} {5,-10}", car.Id, car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description));
+
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            } 
+
+
 
             // ColorId  si 8 olan tüm araçları listeleme
-            Console.WriteLine(String.Format("{0,-3} {1,-7}  {2,-7} {3,-15} {4,-10} {5,-10}", "Id", "BrandId", "ColorId", "Model Year", "DailyPrice", "Description"));
-            foreach (var car in carManager.GetCarsByColorId(8))
+             result = carManager.GetCarsByColorId(8);
+            if (result.Success == true)
             {
-                Console.WriteLine(String.Format("{0,4} {1,4}  {2,4} {3,-10} {4,-10} {5,-10}", car.Id, car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description));
 
+
+                Console.WriteLine(String.Format("{0,-3} {1,-7}  {2,-7} {3,-15} {4,-10} {5,-10}", "Id", "BrandId", "ColorId", "Model Year", "DailyPrice", "Description"));
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(String.Format("{0,4} {1,4}  {2,4} {3,-10} {4,-10} {5,-10}", car.Id, car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description));
+
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
 
-            // Id si 10 olan aracın bilgilerini getirme 
+            // Id si 10 olan aracın bilgilerini getirme
+            
+             
             Console.WriteLine(String.Format("{0,-3} {1,-7}  {2,-7} {3,-15} {4,-10} {5,-10}", "Id", "BrandId", "ColorId", "Model Year", "DailyPrice", "Description"));
 
-            Car carToGet = new Car();
-            carToGet = carManager.Get(10);
+            
+            var carToGet = carManager.Get(10);
+            if (carToGet.Success == true)
             {
-                Console.WriteLine(String.Format("{0,4} {1,4}  {2,4} {3,-10} {4,-10} {5,-10}", carToGet.Id, carToGet.BrandId, carToGet.ColorId, carToGet.ModelYear, carToGet.DailyPrice, carToGet.Description));
 
+                {
+                    Console.WriteLine(String.Format("{0,4} {1,4}  {2,4} {3,-10} {4,-10} {5,-10}", carToGet.Data.Id, carToGet.Data.BrandId, carToGet.Data.ColorId, carToGet.Data.ModelYear, carToGet.Data.DailyPrice, carToGet.Data.Description));
+
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
 
+
+            
+            var crd = carManager.GetCarDetails();
             // Araç ile birlikte ve marka ve rengini getirme Dto örneği
-
-            Console.WriteLine(String.Format("{0,-4} {1,20}  {2,20} {3,-10} {4,-10} {5,-10}", "Id", "BrandName", "ColorName", "Model Year", "DailyPrice", "Description"));
-            foreach (var car in carManager.GetCarDetails())
+            
+            if (crd.Success == true)
             {
-                Console.WriteLine(String.Format("{0,4} {1,20}  {2,20} {3,-10} {4,-10} {5,-10}", car.CarId, car.BrandName, car.ColorName, car.ModelYear, car.DailyPrice, car.Description));
 
+
+                Console.WriteLine(String.Format("{0,-4} {1,20}  {2,20} {3,-10} {4,-10} {5,-10}", "Id", "BrandName", "ColorName", "Model Year", "DailyPrice", "Description"));
+                foreach (var car in crd.Data)
+                {
+                    Console.WriteLine(String.Format("{0,4} {1,20}  {2,20} {3,-10} {4,-10} {5,-10}", car.CarId, car.BrandName, car.ColorName, car.ModelYear, car.DailyPrice, car.Description));
+
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
 
             // DailyPrice değeri 170 - 205 aralığında olan araçları getirme
-
-            Console.WriteLine(String.Format("{0,-4} {1,-4}  {2,-4} {3,-10} {4,-10} {5,-10}", "Id", "BrandId", "ColorId", "Model Year", "DailyPrice", "Description"));
-            foreach (var car in carManager.GetByDailyPrice(170, 205))
+            result = carManager.GetByDailyPrice(170, 205);
+            if (result.Success == true)
             {
-                Console.WriteLine(String.Format("{0,4} {1,4}  {2,4} {3,-10} {4,-10} {5,-10}", car.Id, car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description));
 
+
+                Console.WriteLine(String.Format("{0,-4} {1,-4}  {2,-4} {3,-10} {4,-10} {5,-10}", "Id", "BrandId", "ColorId", "Model Year", "DailyPrice", "Description"));
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(String.Format("{0,4} {1,4}  {2,4} {3,-10} {4,-10} {5,-10}", car.Id, car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description));
+
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
 
 
@@ -178,24 +242,40 @@ namespace ConsoleUI
 
             // Tüm renkleri listeleme
             Console.WriteLine(String.Format("{0,-3} {1,20}", "Id", "ColorName"));
-
-            foreach (var color in colorManager.GetAll())
+            var result = colorManager.GetAll();
+            if (result.Success == true)
             {
 
-                Console.WriteLine(String.Format("{0,-3} {1,20}", color.Id, color.Name));
+
+                foreach (var color in result.Data)
+                {
+
+                    Console.WriteLine(String.Format("{0,-3} {1,20}", color.Id, color.Name));
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
 
             // 5 nolu rengi getirme 
             Console.WriteLine(String.Format("{0,-3} {1,20}", "Id", "ColorName"));
 
-            Color colorToGet = new Color();
+          
 
-            colorToGet = colorManager.Get(5);
+            var colorToGet = colorManager.Get(5);
+            if (colorToGet.Success == true)
+            {
 
 
 
-            Console.WriteLine(String.Format("{0,-3} {1,20}", colorToGet.Id, colorToGet.Name));
 
+                Console.WriteLine(String.Format("{0,-3} {1,20}", colorToGet.Data.Id, colorToGet.Data.Name));
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
 
 
 
@@ -205,7 +285,7 @@ namespace ConsoleUI
 
         }
 
-        private static void BrandTEst()
+        private static void BrandTest()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
 
@@ -232,39 +312,99 @@ namespace ConsoleUI
                 new Brand{Name="Volvo"}
            };
 
+            
             // listedeki markaları boş vt ye atacaz
             foreach (var brand in _brands)
             {
-                brandManager.Add(brand);
+                var  resulti = brandManager.Add(brand);
+                if (resulti.Success==true)
+                {
+                    Console.WriteLine(Messages.CarAdded);
+
+                }
+                else
+                {
+                    Console.WriteLine(resulti.Message);
+                }
             }
 
             Brand brandToUpdate = new Brand();
             brandToUpdate.Id = 10;
             brandToUpdate.Name = "Nissan";
             // id si 10 olan ürünü bilerek Nissan yerine Nisan yapmıştım. onu düzeltecez
-            brandManager.Update(brandToUpdate);
+           
+            
+            
+            var result=brandManager.Update(brandToUpdate);
+            if (result.Success==true)
+            {
+                Console.WriteLine(Messages.CarUpdated);
+
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+
 
             Brand brandToDelete = new Brand();
             brandToDelete.Id = 20;
 
             // id si 19 ve 20 olan markayı  bilerek iki defa yazdım. Fazlalık olan 20 noluyu silecez
-            brandManager.Delete(brandToDelete);
+            
+            
+            result=brandManager.Delete(brandToDelete);
+            if (result.Success==true)
+            {
+
+                Console.WriteLine(Messages.CarDeleted);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+
+
+
 
             // Tüm markaları listeleme
-            Console.WriteLine(String.Format("{0,-3} {1,20}", "Id", "BrandName"));
-            foreach (var brand in brandManager.GetAll())
+            
+
+
+            var result3 = brandManager.GetAll();
+            if (result3.Success == true)
             {
-                Console.WriteLine(String.Format("{0,-3} {1,20}", brand.Id, brand.Name));
+                Console.WriteLine(String.Format("{0,-3} {1,20}", "Id", "BrandName"));
+
+                foreach (var brand in result3.Data)
+                {
+                    Console.WriteLine(String.Format("{0,-3} {1,20}", brand.Id, brand.Name));
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
 
             // 11 nolu markayı listeleme 
-            Brand brandToGet = new Brand();
-            brandToGet = brandManager.Get(11);
+           
+            var brandToGet = brandManager.Get(11);
+            if (brandToGet.Success==true)
+            {
+                Console.WriteLine(String.Format("{0,-3} {1,20}", "Id", "BrandName"));
 
+                Console.WriteLine(String.Format("{0,-3} {1,20}", brandToGet.Data.Id, brandToGet.Data.Name));
 
-            Console.WriteLine(String.Format("{0,-3} {1,20}", "Id", "BrandName"));
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
 
-            Console.WriteLine(String.Format("{0,-3} {1,20}", brandToGet.Id, brandToGet.Name));
+            }
+
+            
 
 
 
@@ -277,36 +417,65 @@ namespace ConsoleUI
 
             Console.WriteLine("********** GetAll Cars ****************************");
 
-            carManager.GetAll();
-            Console.WriteLine(String.Format("{0,-3} {1,-7}  {2,-7} {3,-15} {4,-10} {5,-10}", "Id", "BrandId", "ColorId", "Model Year", "DailyPrice", "Description"));
-            foreach (var car in carManager.GetAll())
-            {
-                Console.WriteLine(String.Format("{0,4} {1,4}  {2,4} {3,-10} {4,-10} {5,-10}", car.Id, car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description));
+            var result =carManager.GetAll();
 
+            if (result.Success == true)
+            {
+
+
+                Console.WriteLine(String.Format("{0,-3} {1,-7}  {2,-7} {3,-15} {4,-10} {5,-10}", "Id", "BrandId", "ColorId", "Model Year", "DailyPrice", "Description"));
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(String.Format("{0,4} {1,4}  {2,4} {3,-10} {4,-10} {5,-10}", car.Id, car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description));
+
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
 
+            
+            
             Console.WriteLine("**********GetAll Cars By Brand Id****************************");
 
 
-            carManager.GetCarsByBrandId(2);
-
-            Console.WriteLine(String.Format("{0,-3} {1,-7}  {2,-7} {3,-15} {4,-10} {5,-10}", "Id", "BrandId", "ColorId", "Model Year", "DailyPrice", "Description"));
-            foreach (var car in carManager.GetCarsByBrandId(18))
+            result=carManager.GetCarsByBrandId(18);
+            if (result.Success == true)
             {
-                Console.WriteLine(String.Format("{0,3} {1,7}  {2,7} {3,-15} {4,-10} {5,-10}", car.Id, car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description));
 
 
+                Console.WriteLine(String.Format("{0,-3} {1,-7}  {2,-7} {3,-15} {4,-10} {5,-10}", "Id", "BrandId", "ColorId", "Model Year", "DailyPrice", "Description"));
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(String.Format("{0,3} {1,7}  {2,7} {3,-15} {4,-10} {5,-10}", car.Id, car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description));
+
+
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
 
 
             Console.WriteLine("********GetAll Cars By Color Id******************************");
 
 
-            carManager.GetCarsByColorId(10);
-            Console.WriteLine(String.Format("{0,-3} {1,-7}  {2,-7} {3,-15} {4,-10} {5,-10}", "Id", "BrandId", "ColorId", "Model Year", "DailyPrice", "Description"));
-            foreach (var car in carManager.GetCarsByColorId(10))
+            result=carManager.GetCarsByColorId(10);
+            if (result.Success==true)
             {
-                Console.WriteLine(String.Format("{0,3} {1,7}  {2,7} {3,-15} {4,-10} {5,-10}", car.Id, car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description));
+
+
+                Console.WriteLine(String.Format("{0,-3} {1,-7}  {2,-7} {3,-15} {4,-10} {5,-10}", "Id", "BrandId", "ColorId", "Model Year", "DailyPrice", "Description"));
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(String.Format("{0,3} {1,7}  {2,7} {3,-15} {4,-10} {5,-10}", car.Id, car.BrandId, car.ColorId, car.ModelYear, car.DailyPrice, car.Description));
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
 
 
@@ -323,50 +492,83 @@ namespace ConsoleUI
             Console.WriteLine("******** GetAll Brands ******************************");
 
 
-
-            Console.WriteLine(String.Format("{0,-3} {1,-15}", "Id", "Brand Name"));
-            foreach (var brand in brandManager.GetAll())
+            var resultb = brandManager.GetAll();
+            if (resultb.Success == true)
             {
-                Console.WriteLine(String.Format("{0,3} {1,-15}", brand.Id, brand.Name));
+
+
+                Console.WriteLine(String.Format("{0,-3} {1,-15}", "Id", "Brand Name"));
+                foreach (var brand in resultb.Data)
+                {
+                    Console.WriteLine(String.Format("{0,3} {1,-15}", brand.Id, brand.Name));
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+
 
 
             Console.WriteLine("******** Get a Brand ******************************");
 
 
-            brandManager.Get(3);
+             var resultg =brandManager.Get(3);
+            if (result.Success == true)
+            {
 
 
-            Console.WriteLine(String.Format("{0,-3} {1,-15}", "Id", "Brand Name"));
 
-            Console.WriteLine(String.Format("{0,3} {1,-15}", brandManager.Get(3).Id, brandManager.Get(3).Name));
+                Console.WriteLine(String.Format("{0,-3} {1,-15}", "Id", "Brand Name"));
 
+                Console.WriteLine(String.Format("{0,3} {1,-15}", resultg.Data.Id, resultg.Data.Name));
 
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
 
             ColorManager colorManager = new ColorManager(new InMemoryColorDal());
-            colorManager.GetAll();
-
+            
+            
             Console.WriteLine("******** GetAll Colors ******************************");
 
-
-
-            Console.WriteLine(String.Format("{0,-3} {1,-15}", "Id", "Color Name"));
-            foreach (var color in colorManager.GetAll())
+            var resultc = colorManager.GetAll();
+            if (resultc.Success == true)
             {
-                Console.WriteLine(String.Format("{0,3} {1,-15}", color.Id, color.Name));
+
+                Console.WriteLine(String.Format("{0,-3} {1,-15}", "Id", "Color Name"));
+                foreach (var color in resultc.Data)
+                {
+                    Console.WriteLine(String.Format("{0,3} {1,-15}", color.Id, color.Name));
+                }
+            }
+            else
+            {
+
+                Console.WriteLine(result.Message);
             }
 
 
             Console.WriteLine("******** Get a Color ******************************");
 
 
-            colorManager.Get(5);
+           var colorg= colorManager.Get(5);
+
+            if (colorg.Success == true)
+            {
 
 
-            Console.WriteLine(String.Format("{0,-3} {1,-15}", "Id", "Color Name"));
+                Console.WriteLine(String.Format("{0,-3} {1,-15}", "Id", "Color Name"));
 
-            Console.WriteLine(String.Format("{0,3} {1,-15}", colorManager.Get(5).Id, colorManager.Get(5).Name));
-
+                Console.WriteLine(String.Format("{0,3} {1,-15}", colorg.Data.Id, colorg.Data.Name));
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
         }
     }
 }
