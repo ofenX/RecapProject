@@ -17,15 +17,242 @@ namespace ConsoleUI
             //BrandTEst();
             // ColorTest();
             //CarTest();
-            CarManager carManager = new CarManager(new EfCarDal());
+            // UserTest();
+            //CustomerTest();
+
+            RentalTest();
+
+        }
+
+        private static void RentalTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            Rental rental1 = new Rental();
+            rental1.CarId = 4;
+            rental1.CustomerId = 4;
+            rental1.Rentdate = new DateTime(2021, 02, 05);
+            var result = rentalManager.Add(rental1);
+            if (result.Success == true)
+
+            {
+                Console.WriteLine(Messages.RentalAdded);
+
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void CustomerTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+
+            List<Customer> _customers = new List<Customer>
+            {
+                new Customer() { UserId = 2, CompanyName = "Başarı İletişim" } ,
+                new Customer() { UserId = 3, CompanyName = "Samancı Gıda" } ,
+                new Customer() { UserId = 4, CompanyName = "Global Serviss" } ,
+                new Customer() { UserId = 5, CompanyName = "Turuncu Kuruyemiş" } ,
 
 
-            
-            
+            };
+            foreach (var customer in _customers)
+            {
+
+
+                var result = customerManager.Add(customer);
+                if (result.Success == true)
+                {
+                    Console.WriteLine(Messages.CustomerAdded);
+
+                }
+                else
+                {
+                    Console.WriteLine(result.Message);
+                }
+
+
+            }
+
+            // Global Servis yanlışlıkla Global Serviss yazılmış düzeltilecek.
+            Customer customerToUpdate = new Customer();
+            customerToUpdate.Id = 3;
+            customerToUpdate.UserId = 4;
+            customerToUpdate.CompanyName = "Global Servis";
+            var result2 = customerManager.Update(customerToUpdate);
+            if (result2.Success == true)
+            {
+                Console.WriteLine(Messages.CustomerUpdated);
+
+            }
+            else
+            {
+                Console.WriteLine(result2.Message);
+            }
+
+            // Turuncu Kuruyemiş silinecek
+            Customer customerToDelete = new Customer();
+            customerToDelete.Id = 4;
+
+
+            var result3 = customerManager.Delete(customerToDelete);
+            if (result3.Success == true)
+            {
+                Console.WriteLine(Messages.CustomerDeleted);
+
+            }
+            else
+            {
+                Console.WriteLine(result3.Message);
+            }
+
+            var result4 = customerManager.GetAll();
+            if (result4.Success == true)
+            {
+
+
+                foreach (var customer in result4.Data)
+
+                {
+                    Console.WriteLine("{0}        {1}          {2}", customer.Id, customer.UserId, customer.CompanyName);
+
+                }
+                Console.WriteLine(Messages.CustomersListed);
+
+            }
+            else
+            {
+                Console.WriteLine(result4.Message);
+            }
+            // Id si 1 olan müşterinin bilgilerini getir
+            var result5 = customerManager.Get(1);
+            if (result5.Success == true)
+            {
+
+                Console.WriteLine("{0}        {1}          {2}", result5.Data.Id, result5.Data.UserId, result5.Data.CompanyName);
+
+
+                Console.WriteLine(Messages.CustomerListed);
+
+            }
+            else
+            {
+                Console.WriteLine(result5.Message);
+            }
+
+
+        }
+
+        private static void UserTest()
+        {
+            List<User> _users = new List<User>()
+            { new User{FirstName="Ahmet",LastName="KAPLAN",Email="ahmetkaplan@gmail.com",Password="123456789012"},
+              new User{FirstName="Mehmet",LastName="SUCUk",Email="mehmetsucu1865@hotmail.com",Password="985456789012"},
+              new User{FirstName="Ayşe",LastName="KIZILDEMİR",Email="kizildemiraysen@gmail.com",Password="654456789012"},
+              new User{FirstName="Gülay",LastName="AKMAN",Email="gakman@gmail.com",Password="321456789012"},
+              new User{FirstName="Serap",LastName="GÜNDÜZ",Email="serapgunduz85@outlook.com",Password="951456789012"},
+            };
+
+            User user1 = new User() { FirstName = "Serap", LastName = "GÜNDÜZ", Email = "serapgunduz85@outlook.com", Password = "951456789012" };
+
+            UserManager userManager = new UserManager(new EfUserDal());
 
 
 
+            //5 adet kullanıcıyı toplu olarak ekleme
 
+            foreach (var user in _users)
+            {
+                var result = userManager.Add(user);
+                if (result.Success == true)
+                {
+                    Console.WriteLine(Messages.UserAdded);
+
+                }
+                else
+                {
+                    Console.WriteLine(result.Message);
+                }
+
+
+            }
+            // Mehmet SUCU adlı kullanıcı yanlışlıkla Mehmet SUCUk olarak girilmiş düzeltilecek
+            User userToUpdate = new User();
+
+            userToUpdate.Id = 3;
+            userToUpdate.FirstName = "Mehmet";
+            userToUpdate.LastName = "SUCU";
+            userToUpdate.Email = "mehmetsucu1865@hotmail.com";
+            userToUpdate.Password = "985456789012";
+
+            var result2 = userManager.Update(userToUpdate);
+
+            if (result2.Success == true)
+            {
+
+                Console.WriteLine(Messages.UserUpdated);
+
+            }
+            else
+            {
+                Console.WriteLine(result2.Message);
+            }
+            // Serap GÜNDÜZ mükerrer girilmiş sondaki kayıt silinecek.
+            User userToDelete = new User();
+
+            userToDelete.Id = 8;
+
+            var result3 = userManager.Delete(userToDelete);
+
+            if (result3.Success == true)
+            {
+
+                Console.WriteLine(Messages.UserDeleted);
+
+            }
+            else
+            {
+                Console.WriteLine(result3.Message);
+            }
+
+            // Tüm Kullanıcıları listeleme
+
+            var result4 = userManager.GetAll();
+
+            if (result4.Success == true)
+            {
+                foreach (var user in result4.Data)
+                {
+                    Console.WriteLine("{0}   {1}   {2}   {3}   {4}", user.Id, user.FirstName, user.LastName, user.Email, user.Password);
+
+                }
+
+                Console.WriteLine(Messages.UsersListed);
+
+            }
+            else
+            {
+                Console.WriteLine(result4.Message);
+            }
+
+
+            // 4 nolu kullanıcının bilgilerini getirme
+
+            var result5 = userManager.Get(4);
+
+            if (result5.Success == true)
+            {
+
+                Console.WriteLine("{0}   {1}   {2}   {3}   {4}", result5.Data.Id, result5.Data.FirstName, result5.Data.LastName, result5.Data.Email, result5.Data.Password);
+
+                Console.WriteLine(Messages.UserListed);
+
+            }
+            else
+            {
+                Console.WriteLine(result5.Message);
+            }
 
 
 
