@@ -25,5 +25,7 @@ namespace Business.Constants
         public static string UserDeleted="Kullanıcı silindi";
         public static string RentalAdded="Kiralama işlemi eklendi";
         public static string CarNotReturned="Bu araç daha kiralamadan geri gelmemiş. Tekrar kiralanamaz";
+        public static string BrandAdded="Marka eklendi";
+        public static string CarIsRentable="Araç kiralanabilir durumdadır.";
     }
 }

@@ -24,12 +24,13 @@ namespace Business.Concrete
             if(brand.Name.Length>2)
             {
                 _brandDal.Add(brand);
-                return new ErrorResult(Messages.BrandInvalid);
+                return new SuccessResult(Messages.BrandAdded);
 
             }
             else
             {
-                return new SuccessResult(Messages.CarAdded);
+                return new ErrorResult(Messages.BrandInvalid);
+                
             }
            
         }
@@ -37,7 +38,7 @@ namespace Business.Concrete
         public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
-            return new Result(true);
+            return new Result(true,"Marka silindi");
         }
 
         public IDataResult<Brand> Get(int id)
@@ -54,7 +55,7 @@ namespace Business.Concrete
         public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
-            return new Result(true);
+            return new Result(true,"Marka düzeltildi");
         }
     }
 }

@@ -59,9 +59,21 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalsListed);
         }
 
-        public IDataResult<List<Rental>> GetReturnDate(int carId)
+       
+
+        public IResult IsRentable(int carId)
         {
-            throw new NotImplementedException();
+            int sayac = _rentalDal.GetAll(p => p.CarId == carId && p.ReturnDate == new DateTime(0001, 01, 01)).Count;
+            if (sayac > 0)
+            {
+
+                return new Result(false, Messages.CarNotReturned);
+            }
+            else
+            {
+               
+                return new Result(true,Messages.CarIsRentable);
+            }
         }
 
         public IResult Update(Rental rental)
