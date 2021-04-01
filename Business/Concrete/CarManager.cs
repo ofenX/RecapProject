@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Utilities.Interceptors;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
@@ -23,17 +25,12 @@ namespace Business.Concrete
 
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if(car.DailyPrice>0)
-            {
+          
                 _carDal.Add(car);
-                return new Result(true);
-            }
-            else
-            {
-                return new Result(false);
-            }
+           return new SuccessResult(Messages.CarAdded);
            
         }
 
