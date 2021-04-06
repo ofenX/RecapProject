@@ -27,5 +27,12 @@ namespace Business.Constants
         public static string CarNotReturned="Bu araç daha kiralamadan geri gelmemiş. Tekrar kiralanamaz";
         public static string BrandAdded="Marka eklendi";
         public static string CarIsRentable="Araç kiralanabilir durumdadır.";
+        public static string CarImageAdded="Araç resmi eklendi";
+        public static string CarImagesListed="Araç resimleri listelendi";
+        public static string CarImageLimitExceded="Araç resim limiti aşıldı.";
+        public static string CarImageDeleted="Araç resmi silindi";
+        public static string CarImageUpdated="Araç resmi değiştirildi";
+        public static string CarImageNotExist="Araç resmi yoktur.";
+        public static string CarIdDosntExists="Böyle bir araç nosu yoktur";
     }
 }

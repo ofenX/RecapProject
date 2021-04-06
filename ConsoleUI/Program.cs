@@ -19,8 +19,14 @@ namespace ConsoleUI
             //CarTest();
             // UserTest();
             //CustomerTest();
+            // RentalTest();
 
-            RentalTest();
+
+           
+
+
+
+            
 
         }
 
