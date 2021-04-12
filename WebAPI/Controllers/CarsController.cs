@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -108,7 +109,7 @@ namespace WebAPI.Controllers
                 return BadRequest(result);
             }
         }
-
+        [SecuredOperation("car.add,admin")]
         [HttpPost("add")]
         public IActionResult Add(Car car)
 

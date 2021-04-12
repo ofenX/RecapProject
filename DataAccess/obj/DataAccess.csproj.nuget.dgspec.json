@@ -60,19 +60,27 @@
               "target": "Package",
               "version": "[9.5.3, )"
             },
-            "Microsoft.AspNetCore.Http.Features": {
+            "Microsoft.AspNetCore.Http": {
               "target": "Package",
-              "version": "[5.0.4, )"
+              "version": "[2.2.2, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[3.1.11, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.10.0, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.10.0, )"
             }
           },
           "imports": [

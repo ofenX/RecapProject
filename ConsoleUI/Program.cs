@@ -152,113 +152,113 @@ namespace ConsoleUI
 
         private static void UserTest()
         {
-            List<User> _users = new List<User>()
-            { new User{FirstName="Ahmet",LastName="KAPLAN",Email="ahmetkaplan@gmail.com",Password="123456789012"},
-              new User{FirstName="Mehmet",LastName="SUCUk",Email="mehmetsucu1865@hotmail.com",Password="985456789012"},
-              new User{FirstName="Ayşe",LastName="KIZILDEMİR",Email="kizildemiraysen@gmail.com",Password="654456789012"},
-              new User{FirstName="Gülay",LastName="AKMAN",Email="gakman@gmail.com",Password="321456789012"},
-              new User{FirstName="Serap",LastName="GÜNDÜZ",Email="serapgunduz85@outlook.com",Password="951456789012"},
-            };
+        //    List<User> _users = new List<User>()
+        //    { new User{FirstName="Ahmet",LastName="KAPLAN",Email="ahmetkaplan@gmail.com",Password="123456789012"},
+        //      new User{FirstName="Mehmet",LastName="SUCUk",Email="mehmetsucu1865@hotmail.com",Password="985456789012"},
+        //      new User{FirstName="Ayşe",LastName="KIZILDEMİR",Email="kizildemiraysen@gmail.com",Password="654456789012"},
+        //      new User{FirstName="Gülay",LastName="AKMAN",Email="gakman@gmail.com",Password="321456789012"},
+        //      new User{FirstName="Serap",LastName="GÜNDÜZ",Email="serapgunduz85@outlook.com",Password="951456789012"},
+        //    };
 
-            User user1 = new User() { FirstName = "Serap", LastName = "GÜNDÜZ", Email = "serapgunduz85@outlook.com", Password = "951456789012" };
+        //    User user1 = new User() { FirstName = "Serap", LastName = "GÜNDÜZ", Email = "serapgunduz85@outlook.com", Password = "951456789012" };
 
-            UserManager userManager = new UserManager(new EfUserDal());
-
-
-
-            //5 adet kullanıcıyı toplu olarak ekleme
-
-            foreach (var user in _users)
-            {
-                var result = userManager.Add(user);
-                if (result.Success == true)
-                {
-                    Console.WriteLine(Messages.UserAdded);
-
-                }
-                else
-                {
-                    Console.WriteLine(result.Message);
-                }
+        //    UserManager userManager = new UserManager(new EfUserDal());
 
 
-            }
-            // Mehmet SUCU adlı kullanıcı yanlışlıkla Mehmet SUCUk olarak girilmiş düzeltilecek
-            User userToUpdate = new User();
 
-            userToUpdate.Id = 3;
-            userToUpdate.FirstName = "Mehmet";
-            userToUpdate.LastName = "SUCU";
-            userToUpdate.Email = "mehmetsucu1865@hotmail.com";
-            userToUpdate.Password = "985456789012";
+        //    //5 adet kullanıcıyı toplu olarak ekleme
 
-            var result2 = userManager.Update(userToUpdate);
+        //    foreach (var user in _users)
+        //    {
+        //        var result = userManager.Add(user);
+        //        if (result.Success == true)
+        //        {
+        //            Console.WriteLine(Messages.UserAdded);
 
-            if (result2.Success == true)
-            {
-
-                Console.WriteLine(Messages.UserUpdated);
-
-            }
-            else
-            {
-                Console.WriteLine(result2.Message);
-            }
-            // Serap GÜNDÜZ mükerrer girilmiş sondaki kayıt silinecek.
-            User userToDelete = new User();
-
-            userToDelete.Id = 8;
-
-            var result3 = userManager.Delete(userToDelete);
-
-            if (result3.Success == true)
-            {
-
-                Console.WriteLine(Messages.UserDeleted);
-
-            }
-            else
-            {
-                Console.WriteLine(result3.Message);
-            }
-
-            // Tüm Kullanıcıları listeleme
-
-            var result4 = userManager.GetAll();
-
-            if (result4.Success == true)
-            {
-                foreach (var user in result4.Data)
-                {
-                    Console.WriteLine("{0}   {1}   {2}   {3}   {4}", user.Id, user.FirstName, user.LastName, user.Email, user.Password);
-
-                }
-
-                Console.WriteLine(Messages.UsersListed);
-
-            }
-            else
-            {
-                Console.WriteLine(result4.Message);
-            }
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine(result.Message);
+        //        }
 
 
-            // 4 nolu kullanıcının bilgilerini getirme
+        //    }
+        //    // Mehmet SUCU adlı kullanıcı yanlışlıkla Mehmet SUCUk olarak girilmiş düzeltilecek
+        //    User userToUpdate = new User();
 
-            var result5 = userManager.Get(4);
+        //    userToUpdate.Id = 3;
+        //    userToUpdate.FirstName = "Mehmet";
+        //    userToUpdate.LastName = "SUCU";
+        //    userToUpdate.Email = "mehmetsucu1865@hotmail.com";
+        //    userToUpdate.Password = "985456789012";
 
-            if (result5.Success == true)
-            {
+        //    var result2 = userManager.Update(userToUpdate);
 
-                Console.WriteLine("{0}   {1}   {2}   {3}   {4}", result5.Data.Id, result5.Data.FirstName, result5.Data.LastName, result5.Data.Email, result5.Data.Password);
+        //    if (result2.Success == true)
+        //    {
 
-                Console.WriteLine(Messages.UserListed);
+        //        Console.WriteLine(Messages.UserUpdated);
 
-            }
-            else
-            {
-                Console.WriteLine(result5.Message);
-            }
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine(result2.Message);
+        //    }
+        //    // Serap GÜNDÜZ mükerrer girilmiş sondaki kayıt silinecek.
+        //    User userToDelete = new User();
+
+        //    userToDelete.Id = 8;
+
+        //    var result3 = userManager.Delete(userToDelete);
+
+        //    if (result3.Success == true)
+        //    {
+
+        //        Console.WriteLine(Messages.UserDeleted);
+
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine(result3.Message);
+        //    }
+
+        //    // Tüm Kullanıcıları listeleme
+
+        //    var result4 = userManager.GetAll();
+
+        //    if (result4.Success == true)
+        //    {
+        //        foreach (var user in result4.Data)
+        //        {
+        //            Console.WriteLine("{0}   {1}   {2}   {3}   {4}", user.Id, user.FirstName, user.LastName, user.Email, user.Password);
+
+        //        }
+
+        //        Console.WriteLine(Messages.UsersListed);
+
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine(result4.Message);
+        //    }
+
+
+        //    // 4 nolu kullanıcının bilgilerini getirme
+
+        //    var result5 = userManager.Get(4);
+
+        //    if (result5.Success == true)
+        //    {
+
+        //        Console.WriteLine("{0}   {1}   {2}   {3}   {4}", result5.Data.Id, result5.Data.FirstName, result5.Data.LastName, result5.Data.Email, result5.Data.Password);
+
+        //        Console.WriteLine(Messages.UserListed);
+
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine(result5.Message);
+        //    }
 
 
 
