@@ -1,3 +1,5 @@
+using Core.DependencyResolvers;
+using Core.Extensions;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
@@ -28,7 +30,7 @@ namespace WebAPI
         {
             //IdentityModelEventSource.ShowPII = true;
             services.AddControllers();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+           // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //services.AddSingleton<IBrandService, BrandManager>();
             //services.AddSingleton<IBrandDal,EfBrandDal>();
 
@@ -63,7 +65,8 @@ namespace WebAPI
                     };
                 });
 
-            ServiceTool.Create(services);
+            //ServiceTool.Create(services);
+            services.AddDependencyResolvers(new ICoreModule[] { new CoreModule()});
 
         }
 
